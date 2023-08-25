@@ -1,6 +1,7 @@
 package com.alimama.mealgpt.entity;
 
 import jakarta.persistence.*;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.Collection;
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -35,8 +37,8 @@ public class User implements UserDetails {
 
 
     //Constructor
-    public User(int theId, String userName, String phoneNumber, String email, String password, String gender) {
-        this.id = theId;
+    public User(String userName, String phoneNumber, String email, String password, String gender) {
+
         this.userName = userName;
         this.phoneNumber = phoneNumber;
         this.email = email;
