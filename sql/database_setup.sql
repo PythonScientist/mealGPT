@@ -3,7 +3,8 @@ USE `meal_gpt`;
 
 SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS `user`;
-DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `fitness_info`;
+DROP TABLE IF EXISTS `authorities`;
 SET foreign_key_checks = 1;
 
 --
@@ -64,3 +65,16 @@ VALUES
 ('172.3','70','more muscle','MALE','32','go to gym once a week'),
 ('170.2','50','health','FEMALE','23', 'walk home'),
 ('170.4','50','health','FEMALE','32', 'swim twice a week');
+
+CREATE TABLE `authorities` (
+	`username` VARCHAR(20) NOT NULL,
+    `authority` VARCHAR(20) NOT NULL,
+    primary key (`username`)
+); 
+
+
+INSERT INTO `authorities` (`username`, `authority`)
+VALUES
+('john', 'ROLE_USER'),
+('mary', 'ROLE_USER'),
+('susan', 'ROLE_USER')

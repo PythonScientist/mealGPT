@@ -1,8 +1,6 @@
 package com.alimama.mealgpt.controller;
 
-import com.alimama.mealgpt.pojo.LoginRequest;
-import com.alimama.mealgpt.pojo.LoginResponse;
-import com.alimama.mealgpt.pojo.ResponseEntity;
+import com.alimama.mealgpt.pojo.*;
 import com.alimama.mealgpt.result.ApiResult;
 import com.alimama.mealgpt.service.UserService;
 import jakarta.validation.Valid;
@@ -27,6 +25,15 @@ public class HomeController {
         HttpStatus code = (loginResponse == null) ? HttpStatus.UNAUTHORIZED : HttpStatus.ACCEPTED;
 
         return new ResponseEntity(code, loginResponse);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity register(@RequestBody RegisterRequest registerRequest) {
+        RegisterResponse registerResponse = userService.register(registerRequest);
+
+        HttpStatus code = (registerRequest == null) ? HttpStatus.UNAUTHORIZED : HttpStatus.ACCEPTED;
+
+        return new ResponseEntity(code, registerResponse);
     }
 
     @GetMapping("/test")

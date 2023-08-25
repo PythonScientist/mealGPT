@@ -9,6 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RegisterResponse {
 
-    private String state;
     private String msg;
 }

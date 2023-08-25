@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class FitnessInfo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 

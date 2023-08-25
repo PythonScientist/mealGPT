@@ -7,6 +7,8 @@ import com.alimama.mealgpt.entity.User;
 import com.alimama.mealgpt.entity.WebUser;
 import com.alimama.mealgpt.pojo.LoginRequest;
 import com.alimama.mealgpt.pojo.LoginResponse;
+import com.alimama.mealgpt.pojo.RegisterRequest;
+import com.alimama.mealgpt.pojo.RegisterResponse;
 import com.alimama.mealgpt.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,19 +55,31 @@ public class UserServiceImpl implements UserService {
         return loginResponse;
     }
 
+    public RegisterResponse register(RegisterRequest registerRequest) {
+        RegisterResponse registerResponse = new RegisterResponse();
+
+        if (registerRequest != null) {
+            String userName = registerRequest.getUserName().toString();
+            registerResponse.setMsg("Successfully Registered " + userName);
+            save(registerRequest);
+        } else {
+            registerResponse.setMsg("Unknown issue occur");
+        }
+
+        return registerResponse;
+    }
+
     @Override
-    public void save(WebUser webUser) {
+    public void save(RegisterRequest registerRequest) {
         User user = new User();
 
-        user.setId(webUser.getId());
-        user.setUserName(webUser.getUserName());
-        user.setPassword(passwordEncoder.encode(webUser.getPassword()));
-        user.setPhoneNumber(webUser.getPhoneNumber());
-        user.setGender(webUser.getGender());
-        user.setEmail(webUser.getEmail());
+        user.setUserName(registerRequest.getUserName());
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setPhoneNumber(registerRequest.getPhoneNumber());
+        user.setGender(registerRequest.getGender());
+        user.setEmail(registerRequest.getEmail());
         userRepository.save(user);
-        authoritiesRepository.save(new Authorities(webUser.getUserName(), "ROLE_USER"));
-
+        authoritiesRepository.save(new Authorities(registerRequest.getUserName(), "ROLE_USER"));
 
     }
 
